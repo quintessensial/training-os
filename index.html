@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Training OS">
+<title>Training OS</title>
+<style>
+:root{--bg:#f5f5f2;--card:#fff;--ink:#151515;--muted:#777;--line:#e8e8e3;--accent:#111827;--good:#147a50}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit}button{border:0;cursor:pointer}.app{max-width:520px;margin:auto;min-height:100vh;padding-bottom:88px}
+header{padding:24px 20px 10px;display:flex;justify-content:space-between;align-items:center}h1{font-size:28px;margin:0;font-weight:800;letter-spacing:-.7px}h2{font-size:21px;margin:0 0 14px;letter-spacing:-.3px}h3{font-size:16px;margin:0}.sub{color:var(--muted);font-size:13px}
+.screen{display:none;padding:10px 16px}.screen.active{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px}
+.hero{background:var(--accent);color:#fff;border-radius:22px;padding:20px;margin:8px 0 18px}.hero .sub{color:#bfc4cc}.hero h2{font-size:24px;margin-bottom:5px}
+.primary{background:#fff;color:#111;padding:12px 16px;border-radius:13px;font-weight:750;margin-top:16px;width:100%}.dark{background:var(--accent);color:#fff;padding:12px 16px;border-radius:13px;font-weight:750;width:100%}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{padding:14px;border-radius:16px;background:#fafaf8;border:1px solid var(--line)}.metric .value{font-size:23px;font-weight:800;margin:4px 0}.metric .label{font-size:12px;color:var(--muted)}
+.exercise{padding:15px 0;border-top:1px solid var(--line)}.exercise:first-child{border-top:0}.exercise-top{display:flex;justify-content:space-between;align-items:flex-start}.pill{font-size:11px;background:#f0f1f3;padding:5px 8px;border-radius:99px;color:#555}
+.sets{display:flex;gap:7px;flex-wrap:wrap;margin:11px 0}.set{display:flex;align-items:center;gap:4px;background:#f7f7f4;border:1px solid var(--line);border-radius:11px;padding:7px}.set input{width:58px;border:0;background:transparent;text-align:center;outline:0;font-weight:700}.set input.small{width:43px}.set.done{background:#eaf7f0;border-color:#bfe5d0}.set button{background:transparent;font-size:17px}.addset{background:#f0f1f3;padding:8px 11px;border-radius:10px;font-size:12px;font-weight:700}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);z-index:10}.nav{max-width:520px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);padding:8px 8px calc(8px + env(safe-area-inset-bottom))}.nav button{background:none;color:#888;font-size:11px;padding:7px 3px}.nav button.active{color:#111;font-weight:800}.nav .ico{font-size:20px;display:block;margin-bottom:2px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.row + .row{margin-top:10px}.link{background:none;color:#555;text-decoration:underline;font-size:13px}.success{color:var(--good);font-weight:750}.muted{color:var(--muted)}.empty{text-align:center;padding:30px;color:var(--muted)}
+form label{display:block;font-size:12px;color:var(--muted);margin:10px 0 5px}input,select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:11px;background:#fff;outline:none}input:focus{border-color:#aaa}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:20;align-items:flex-end}.modal.open{display:flex}.sheet{background:#fff;width:100%;max-width:520px;margin:auto;border-radius:22px 22px 0 0;padding:20px;max-height:90vh;overflow:auto}.sheet .close{float:right;background:#f1f1ef;border-radius:50%;width:32px;height:32px}
+table{width:100%;border-collapse:collapse;font-size:13px}td,th{text-align:left;padding:9px 4px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:600}
+.chart{height:160px;position:relative;border-left:1px solid #ddd;border-bottom:1px solid #ddd;margin-top:12px}.dot{position:absolute;width:8px;height:8px;background:#111827;border-radius:50%;transform:translate(-50%,50%)}
+@media(min-width:700px){body{padding:20px}.bottom{bottom:20px;border:1px solid var(--line);border-radius:18px;left:50%;right:auto;width:520px;transform:translateX(-50%)}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div><div class="sub">YOUR TRAINING</div><h1>Training OS</h1></div><button class="link" onclick="openModal('settings')">⚙︎</button></header>
+
+<section id="home" class="screen active">
+  <div class="hero"><div class="sub">TODAY</div><h2 id="todayTitle">Choose a workout</h2><div class="sub" id="todayMeta">Your next session starts here.</div><button class="primary" onclick="startWorkout()">Start workout</button></div>
+  <h2>Overview</h2><div class="grid2">
+    <div class="metric"><div class="label">Sessions</div><div class="value" id="mSessions">0</div><div class="label">all time</div></div>
+    <div class="metric"><div class="label">This month</div><div class="value" id="mMonth">0</div><div class="label">workouts</div></div>
+    <div class="metric"><div class="label">PRs</div><div class="value" id="mPR">0</div><div class="label">logged</div></div>
+    <div class="metric"><div class="label">Weight</div><div class="value" id="mWeight">—</div><div class="label">latest</div></div>
+  </div>
+  <div class="card"><h3>Quick actions</h3><div class="grid2" style="margin-top:12px"><button class="dark" onclick="openModal('measurement')">＋ Measurement</button><button class="dark" onclick="openModal('workoutPicker')">＋ Workout</button></div></div>
+<div class="card"><h3>Install app</h3><p class="sub">Add Training OS to your home screen for a full-screen app experience.</p><button id="installBtn" class="dark" onclick="installApp()">Install Training OS</button></div>
+</section>
+
+<section id="workout" class="screen">
+  <div class="row"><div><div class="sub">ACTIVE SESSION</div><h2 id="workoutName">Workout</h2></div><button class="link" onclick="finishWorkout()">Finish</button></div>
+  <div class="card"><div class="row"><span class="muted" id="elapsed">00:00</span><span class="pill" id="exerciseCount">0 exercises</span></div></div>
+  <div class="card" id="exerciseList"></div>
+</section>
+
+<section id="progress" class="screen">
+  <h2>Progress</h2>
+  <div class="card"><div class="row"><h3>Strength trend</h3><select id="progressExercise" onchange="renderProgress()"></select></div><div class="chart" id="chart"></div><div class="sub" style="margin-top:10px" id="chartCaption"></div></div>
+  <div class="card"><h3>Personal bests</h3><div id="prs"></div></div>
+</section>
+
+<section id="body" class="screen">
+  <h2>Measurements</h2><button class="dark" onclick="openModal('measurement')">＋ Add measurement</button>
+  <div class="card" style="margin-top:12px"><div class="row"><h3>Bodyweight</h3><span class="muted" id="bodyLatest">—</span></div><div class="chart" id="weightChart"></div></div>
+  <div class="card"><h3>Measurement history</h3><div id="measurementTable"></div></div>
+</section>
+</div>
+
+<div class="bottom"><nav class="nav">
+<button data-tab="home" onclick="tab('home')"><span class="ico">⌂</span>Home</button>
+<button data-tab="workout" onclick="tab('workout')"><span class="ico">＋</span>Workout</button>
+<button data-tab="progress" onclick="tab('progress')"><span class="ico">↗</span>Progress</button>
+<button data-tab="body" onclick="tab('body')"><span class="ico">◯</span>Body</button>
+</nav></div>
+
+<div class="modal" id="modal"><div class="sheet"><button class="close" onclick="closeModal()">×</button><div id="modalContent"></div></div></div>
+
+<script>
+const KEY='training_os_v1';
+let db=JSON.parse(localStorage.getItem(KEY)||'null')||{
+ workouts:[], measurements:[], prs:[],
+ templates:[
+  {name:'Push + FSP', exercises:[{name:'Ring Dip',type:'strength',sets:3,reps:8,load:0},{name:'Overhead Press',type:'strength',sets:3,reps:6,load:0},{name:'Planche',type:'skill',sets:4,hold:10,progression:'Tuck'}]},
+  {name:'Pull + FSP', exercises:[{name:'Weighted Pull-up',type:'strength',sets:3,reps:6,load:0},{name:'Row',type:'strength',sets:3,reps:8,load:0},{name:'Front Lever',type:'skill',sets:4,hold:8,progression:'Advanced tuck'}]},
+  {name:'Legs', exercises:[{name:'Squat',type:'strength',sets:3,reps:6,load:0},{name:'Romanian Deadlift',type:'strength',sets:3,reps:8,load:0},{name:'Split Squat',type:'strength',sets:3,reps:10,load:0}]}
+ ]};
+function save(){localStorage.setItem(KEY,JSON.stringify(db));renderAll()}
+function tab(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));renderAll()}
+function openModal(type){let c=document.getElementById('modalContent');
+ if(type==='workoutPicker'){c.innerHTML='<h2>Choose workout</h2>'+db.templates.map((t,i)=>`<button class="dark" style="margin:6px 0" onclick="beginTemplate(${i})">${t.name}<br><small style="opacity:.7">${t.exercises.length} exercises</small></button>`).join('');}
+ if(type==='measurement'){c.innerHTML=`<h2>Weekly check-in</h2><form onsubmit="addMeasurement(event)"><label>Date</label><input name="date" type="date" value="${new Date().toISOString().slice(0,10)}"><label>Weight (kg)</label><input name="weight" type="number" step=".1" required><label>Waist (cm)</label><input name="waist" type="number" step=".1"><label>Chest (cm)</label><input name="chest" type="number" step=".1"><label>Arm (cm)</label><input name="arm" type="number" step=".1"><label>Thigh (cm)</label><input name="thigh" type="number" step=".1"><button class="dark" style="margin-top:16px">Save measurement</button></form>`;}
+ if(type==='settings'){c.innerHTML=`<h2>Settings</h2><p class="muted">Your data is stored locally in this browser. Use Export to make a backup.</p><button class="dark" onclick="exportData()">Export data</button><button class="dark" style="margin-top:8px" onclick="importData()">Import data</button>`;}
+ document.getElementById('modal').classList.add('open')}
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+let active=null;
+function startWorkout(){openModal('workoutPicker')}
+function beginTemplate(i){closeModal();active={name:db.templates[i].name,start:Date.now(),exercises:db.templates[i].exercises.map(e=>({...e,sets:Array.from({length:e.sets},()=>({load:e.load||0,reps:e.reps||'',hold:e.hold||'',done:false}))}))};renderWorkout();tab('workout')}
+function renderWorkout(){if(!active)return;document.getElementById('workoutName').textContent=active.name;document.getElementById('exerciseCount').textContent=active.exercises.length+' exercises';document.getElementById('exerciseList').innerHTML=active.exercises.map((e,ei)=>`<div class="exercise"><div class="exercise-top"><div><h3>${e.name}</h3><div class="sub">${e.type==='skill'?e.progression||'Skill':'Strength'}</div></div><span class="pill">${e.sets.length} sets</span></div><div class="sets">${e.sets.map((s,si)=>`<div class="set ${s.done?'done':''}">${e.type==='skill'?`<input class="small" type="number" step=".1" value="${s.hold}" onchange="editSet(${ei},${si},'hold',this.value)">s`:`<input class="small" type="number" step=".5" value="${s.load}" onchange="editSet(${ei},${si},'load',this.value)"><input class="small" type="number" value="${s.reps}" onchange="editSet(${ei},${si},'reps',this.value)">`}<button onclick="toggleSet(${ei},${si})">${s.done?'✓':'○'}</button></div>`).join('')}</div><button class="addset" onclick="addSet(${ei})">＋ Set</button></div>`).join('')}
+function editSet(e,s,k,v){active.exercises[e].sets[s][k]=v}
+function toggleSet(e,s){active.exercises[e].sets[s].done=!active.exercises[e].sets[s].done;renderWorkout()}
+function addSet(e){let x=active.exercises[e], last=x.sets[x.sets.length-1]||{};x.sets.push({...last,done:false});renderWorkout()}
+function finishWorkout(){if(!active)return;const w={id:crypto.randomUUID(),date:new Date().toISOString(),name:active.name,duration:Math.round((Date.now()-active.start)/60000),exercises:active.exercises};db.workouts.push(w);detectPRs(w);active=null;save();tab('home')}
+function detectPRs(w){w.exercises.forEach(e=>{if(e.type==='skill')return;e.sets.filter(s=>s.done).forEach(s=>{let score=(+s.load||0)*(+s.reps||0);let old=db.prs.find(p=>p.name===e.name);if(!old||score>old.score){db.prs=db.prs.filter(p=>p.name!==e.name);db.prs.push({name:e.name,score,load:+s.load||0,reps:+s.reps||0,date:w.date})}})})}
+function addMeasurement(ev){ev.preventDefault();let f=new FormData(ev.target),m=Object.fromEntries(f.entries());Object.keys(m).forEach(k=>{if(k!=='date')m[k]=m[k]?+m[k]:null});db.measurements.push(m);db.measurements.sort((a,b)=>a.date.localeCompare(b.date));closeModal();save()}
+function renderHome(){document.getElementById('mSessions').textContent=db.workouts.length;let ym=new Date().toISOString().slice(0,7);document.getElementById('mMonth').textContent=db.workouts.filter(w=>w.date.slice(0,7)===ym).length;document.getElementById('mPR').textContent=db.prs.length;let m=db.measurements.at(-1);document.getElementById('mWeight').textContent=m?.weight?m.weight+' kg':'—';let t=db.templates[0];document.getElementById('todayTitle').textContent=active?active.name:t.name;document.getElementById('todayMeta').textContent=active?'Workout in progress':t.exercises.length+' exercises · tap to start'}
+function renderProgress(){let names=[...new Set(db.workouts.flatMap(w=>w.exercises.map(e=>e.name)))];let sel=document.getElementById('progressExercise'),current=sel.value;sel.innerHTML=names.map(n=>`<option>${n}</option>`).join('');if(current&&names.includes(current))sel.value=current;let name=sel.value,points=[];db.workouts.forEach(w=>w.exercises.forEach(e=>{if(e.name===name&&e.type==='strength'){e.sets.filter(s=>s.done).forEach(s=>points.push({date:w.date,v:(+s.load||0)*(+s.reps||0)}))}}));drawChart('chart',points);document.getElementById('chartCaption').textContent=points.length?`${name}: load × reps across logged sets`:'Log a strength workout to see progress.';document.getElementById('prs').innerHTML=db.prs.length?db.prs.map(p=>`<div class="row" style="padding:10px 0;border-bottom:1px solid var(--line)"><div><b>${p.name}</b><div class="sub">${new Date(p.date).toLocaleDateString()}</div></div><div class="success">+${p.load} × ${p.reps}</div></div>`).join(''):'<div class="empty">Your first PRs will appear here.</div>'}
+function drawChart(id,pts){let el=document.getElementById(id);if(!pts.length){el.innerHTML='';return}let vals=pts.map(p=>p.v),min=Math.min(...vals),max=Math.max(...vals);if(max===min)max=min+1;el.innerHTML=pts.map((p,i)=>{let x=5+(i/(Math.max(pts.length-1,1)))*90,y=5+((p.v-min)/(max-min))*90;return `<span class="dot" style="left:${x}%;bottom:${y}%"></span>`}).join('')}
+function renderBody(){let ms=db.measurements;document.getElementById('bodyLatest').textContent=ms.at(-1)?.weight?ms.at(-1).weight+' kg':'—';drawChart('weightChart',ms.map(m=>({v:m.weight||0,date:m.date})));document.getElementById('measurementTable').innerHTML=ms.length?`<table><tr><th>Date</th><th>Weight</th><th>Waist</th><th>Chest</th></tr>${[...ms].reverse().map(m=>`<tr><td>${m.date}</td><td>${m.weight??'—'}</td><td>${m.waist??'—'}</td><td>${m.chest??'—'}</td></tr>`).join('')}</table>`:'<div class="empty">No measurements yet.</div>'}
+function renderAll(){renderHome();renderProgress();renderBody()}
+function exportData(){let blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='training-os-backup.json';a.click()}
+function importData(){let i=document.createElement('input');i.type='file';i.accept='.json';i.onchange=()=>{let r=new FileReader();r.onload=()=>{db=JSON.parse(r.result);save();closeModal()};r.readAsText(i.files[0])};i.click()}
+renderAll();document.querySelector('[data-tab="home"]').classList.add('active');
+setInterval(()=>{if(active)document.getElementById('elapsed').textContent=new Date(Date.now()-active.start).toISOString().substr(14,5)},1000);
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js').catch(console.error);
+  });
+}
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const btn = document.getElementById('installBtn');
+  if (btn) btn.style.display = 'block';
+});
+async function installApp(){
+  if (deferredPrompt){
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    const btn = document.getElementById('installBtn');
+    if (btn) btn.style.display='none';
+  } else {
+    alert('On iPhone: open this page in Safari, tap Share, then “Add to Home Screen”.');
+  }
+}
+</script>
+
+</body></html>
