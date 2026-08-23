@@ -1,10 +1,10 @@
 {
-  "name": "Training OS v2",
+  "name": "Training OS v7",
   "short_name": "Training OS",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f5f5f2",
+  "background_color": "#f6f6f3",
   "theme_color": "#111827",
   "icons": [
     {
