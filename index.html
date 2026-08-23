@@ -9,133 +9,148 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Training OS">
-<title>Training OS</title>
+<title>Training OS v2</title>
 <style>
-:root{--bg:#f5f5f2;--card:#fff;--ink:#151515;--muted:#777;--line:#e8e8e3;--accent:#111827;--good:#147a50}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
-button,input,select{font:inherit}button{border:0;cursor:pointer}.app{max-width:520px;margin:auto;min-height:100vh;padding-bottom:88px}
-header{padding:24px 20px 10px;display:flex;justify-content:space-between;align-items:center}h1{font-size:28px;margin:0;font-weight:800;letter-spacing:-.7px}h2{font-size:21px;margin:0 0 14px;letter-spacing:-.3px}h3{font-size:16px;margin:0}.sub{color:var(--muted);font-size:13px}
-.screen{display:none;padding:10px 16px}.screen.active{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px}
-.hero{background:var(--accent);color:#fff;border-radius:22px;padding:20px;margin:8px 0 18px}.hero .sub{color:#bfc4cc}.hero h2{font-size:24px;margin-bottom:5px}
-.primary{background:#fff;color:#111;padding:12px 16px;border-radius:13px;font-weight:750;margin-top:16px;width:100%}.dark{background:var(--accent);color:#fff;padding:12px 16px;border-radius:13px;font-weight:750;width:100%}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{padding:14px;border-radius:16px;background:#fafaf8;border:1px solid var(--line)}.metric .value{font-size:23px;font-weight:800;margin:4px 0}.metric .label{font-size:12px;color:var(--muted)}
-.exercise{padding:15px 0;border-top:1px solid var(--line)}.exercise:first-child{border-top:0}.exercise-top{display:flex;justify-content:space-between;align-items:flex-start}.pill{font-size:11px;background:#f0f1f3;padding:5px 8px;border-radius:99px;color:#555}
-.sets{display:flex;gap:7px;flex-wrap:wrap;margin:11px 0}.set{display:flex;align-items:center;gap:4px;background:#f7f7f4;border:1px solid var(--line);border-radius:11px;padding:7px}.set input{width:58px;border:0;background:transparent;text-align:center;outline:0;font-weight:700}.set input.small{width:43px}.set.done{background:#eaf7f0;border-color:#bfe5d0}.set button{background:transparent;font-size:17px}.addset{background:#f0f1f3;padding:8px 11px;border-radius:10px;font-size:12px;font-weight:700}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);z-index:10}.nav{max-width:520px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);padding:8px 8px calc(8px + env(safe-area-inset-bottom))}.nav button{background:none;color:#888;font-size:11px;padding:7px 3px}.nav button.active{color:#111;font-weight:800}.nav .ico{font-size:20px;display:block;margin-bottom:2px}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.row + .row{margin-top:10px}.link{background:none;color:#555;text-decoration:underline;font-size:13px}.success{color:var(--good);font-weight:750}.muted{color:var(--muted)}.empty{text-align:center;padding:30px;color:var(--muted)}
-form label{display:block;font-size:12px;color:var(--muted);margin:10px 0 5px}input,select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:11px;background:#fff;outline:none}input:focus{border-color:#aaa}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:20;align-items:flex-end}.modal.open{display:flex}.sheet{background:#fff;width:100%;max-width:520px;margin:auto;border-radius:22px 22px 0 0;padding:20px;max-height:90vh;overflow:auto}.sheet .close{float:right;background:#f1f1ef;border-radius:50%;width:32px;height:32px}
-table{width:100%;border-collapse:collapse;font-size:13px}td,th{text-align:left;padding:9px 4px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:600}
-.chart{height:160px;position:relative;border-left:1px solid #ddd;border-bottom:1px solid #ddd;margin-top:12px}.dot{position:absolute;width:8px;height:8px;background:#111827;border-radius:50%;transform:translate(-50%,50%)}
-@media(min-width:700px){body{padding:20px}.bottom{bottom:20px;border:1px solid var(--line);border-radius:18px;left:50%;right:auto;width:520px;transform:translateX(-50%)}}
+:root{--bg:#f5f5f2;--card:#fff;--ink:#151515;--muted:#777;--line:#e8e8e3;--accent:#111827;--good:#147a50;--warn:#a15c00}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;color:var(--ink)}
+button,input,select,textarea{font:inherit}button{border:0;cursor:pointer}.app{max-width:560px;margin:auto;min-height:100vh;padding-bottom:92px}
+header{padding:22px 18px 8px;display:flex;justify-content:space-between;align-items:center}h1{font-size:28px;margin:0;font-weight:800;letter-spacing:-.7px}h2{font-size:21px;margin:0 0 12px}h3{font-size:16px;margin:0}.sub{color:var(--muted);font-size:13px}.tiny{font-size:11px;color:var(--muted)}
+.screen{display:none;padding:10px 16px}.screen.active{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px}.hero{background:var(--accent);color:#fff;border-radius:22px;padding:20px;margin:8px 0 18px}.hero .sub{color:#bfc4cc}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.stack{display:flex;flex-direction:column;gap:8px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.primary{background:#fff;color:#111;padding:12px 16px;border-radius:13px;font-weight:750;width:100%}.dark{background:var(--accent);color:#fff;padding:12px 16px;border-radius:13px;font-weight:750;width:100%}.soft{background:#f0f1f3;color:#222;padding:10px 12px;border-radius:11px;font-weight:700}.link{background:none;color:#555;text-decoration:underline;font-size:13px}
+.pill{font-size:11px;background:#f0f1f3;padding:5px 8px;border-radius:99px;color:#555}.success{color:var(--good);font-weight:750}.warn{color:var(--warn);font-weight:700}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);z-index:10}.nav{max-width:560px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr);padding:7px 6px calc(7px + env(safe-area-inset-bottom))}.nav button{background:none;color:#888;font-size:10px;padding:6px 2px}.nav button.active{color:#111;font-weight:800}.ico{font-size:19px;display:block;margin-bottom:2px}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:20;align-items:flex-end}.modal.open{display:flex}.sheet{background:#fff;width:100%;max-width:560px;margin:auto;border-radius:22px 22px 0 0;padding:20px;max-height:92vh;overflow:auto}.close{float:right;background:#f1f1ef;border-radius:50%;width:32px;height:32px}
+label{display:block;font-size:12px;color:var(--muted);margin:10px 0 5px}input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:11px;background:#fff;outline:none}textarea{min-height:74px;resize:vertical}
+.block-card,.template-card,.exercise-card{border:1px solid var(--line);border-radius:15px;padding:13px;margin-top:10px;background:#fff}.exercise-card{background:#fafaf8}.exercise-header{display:flex;justify-content:space-between;gap:8px}
+.setrow{display:grid;grid-template-columns:40px 1fr 1fr 48px;gap:6px;align-items:center;margin:7px 0}.setrow.skill{grid-template-columns:40px 1fr 48px}.setrow input{padding:9px;text-align:center}.check{background:#f0f1f3;border-radius:10px;height:40px}.check.done{background:#dff3e8}.rest{font-size:12px;color:var(--muted);margin-top:5px}.note{font-size:12px;color:#555;margin-top:6px}
+.chiprow{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}.chip{background:#f0f1f3;padding:7px 10px;border-radius:99px;font-size:12px}.chip.active{background:#111827;color:#fff}
+.metric{padding:14px;border-radius:16px;background:#fafaf8;border:1px solid var(--line)}.metric .value{font-size:23px;font-weight:800;margin:4px 0}.metric .label{font-size:12px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:13px}td,th{text-align:left;padding:9px 4px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:600}.empty{text-align:center;padding:26px;color:var(--muted)}
+@media(min-width:700px){body{padding:20px}.bottom{bottom:20px;border:1px solid var(--line);border-radius:18px;left:50%;right:auto;width:560px;transform:translateX(-50%)}}
 </style>
 </head>
 <body>
 <div class="app">
-<header><div><div class="sub">YOUR TRAINING</div><h1>Training OS</h1></div><button class="link" onclick="openModal('settings')">⚙︎</button></header>
+<header><div><div class="sub">TRAINING OS</div><h1>v2</h1></div><button class="link" onclick="openModal('settings')">⚙︎</button></header>
 
 <section id="home" class="screen active">
-  <div class="hero"><div class="sub">TODAY</div><h2 id="todayTitle">Choose a workout</h2><div class="sub" id="todayMeta">Your next session starts here.</div><button class="primary" onclick="startWorkout()">Start workout</button></div>
-  <h2>Overview</h2><div class="grid2">
-    <div class="metric"><div class="label">Sessions</div><div class="value" id="mSessions">0</div><div class="label">all time</div></div>
-    <div class="metric"><div class="label">This month</div><div class="value" id="mMonth">0</div><div class="label">workouts</div></div>
-    <div class="metric"><div class="label">PRs</div><div class="value" id="mPR">0</div><div class="label">logged</div></div>
-    <div class="metric"><div class="label">Weight</div><div class="value" id="mWeight">—</div><div class="label">latest</div></div>
+  <div class="hero">
+    <div class="sub">ACTIVE BLOCK</div>
+    <h2 id="activeBlockName">No active block</h2>
+    <div class="sub" id="activeBlockMeta">Create a block to start.</div>
+    <button class="primary" style="margin-top:16px" onclick="startNextWorkout()">Start next workout</button>
   </div>
-  <div class="card"><h3>Quick actions</h3><div class="grid2" style="margin-top:12px"><button class="dark" onclick="openModal('measurement')">＋ Measurement</button><button class="dark" onclick="openModal('workoutPicker')">＋ Workout</button></div></div>
-<div class="card"><h3>Install app</h3><p class="sub">Add Training OS to your home screen for a full-screen app experience.</p><button id="installBtn" class="dark" onclick="installApp()">Install Training OS</button></div>
+  <div class="grid2">
+    <div class="metric"><div class="label">Sessions</div><div class="value" id="mSessions">0</div><div class="label">all time</div></div>
+    <div class="metric"><div class="label">Blocks</div><div class="value" id="mBlocks">0</div><div class="label">created</div></div>
+  </div>
+  <div class="card"><h3>This week's split</h3><div id="homeTemplates"></div></div>
 </section>
 
-<section id="workout" class="screen">
-  <div class="row"><div><div class="sub">ACTIVE SESSION</div><h2 id="workoutName">Workout</h2></div><button class="link" onclick="finishWorkout()">Finish</button></div>
-  <div class="card"><div class="row"><span class="muted" id="elapsed">00:00</span><span class="pill" id="exerciseCount">0 exercises</span></div></div>
-  <div class="card" id="exerciseList"></div>
+<section id="train" class="screen">
+  <div id="noActiveWorkout" class="card empty">No workout in progress.</div>
+  <div id="activeWorkoutWrap" style="display:none">
+    <div class="row"><div><div class="sub">ACTIVE SESSION</div><h2 id="awName"></h2></div><button class="link" onclick="finishWorkout()">Finish</button></div>
+    <div class="card"><div class="row"><span id="awBlock" class="pill"></span><span id="awElapsed" class="sub">00:00</span></div></div>
+    <div id="awExercises"></div>
+    <div class="card"><label>Workout notes</label><textarea id="awNotes" placeholder="How did the session feel?"></textarea></div>
+  </div>
+</section>
+
+<section id="program" class="screen">
+  <div class="row"><h2>Program</h2><button class="soft" onclick="openModal('newBlock')">＋ Block</button></div>
+  <div id="blockList"></div>
 </section>
 
 <section id="progress" class="screen">
-  <h2>Progress</h2>
-  <div class="card"><div class="row"><h3>Strength trend</h3><select id="progressExercise" onchange="renderProgress()"></select></div><div class="chart" id="chart"></div><div class="sub" style="margin-top:10px" id="chartCaption"></div></div>
-  <div class="card"><h3>Personal bests</h3><div id="prs"></div></div>
+  <h2>History</h2>
+  <div class="card"><div class="chiprow" id="blockFilters"></div><div id="historyList"></div></div>
 </section>
 
 <section id="body" class="screen">
-  <h2>Measurements</h2><button class="dark" onclick="openModal('measurement')">＋ Add measurement</button>
-  <div class="card" style="margin-top:12px"><div class="row"><h3>Bodyweight</h3><span class="muted" id="bodyLatest">—</span></div><div class="chart" id="weightChart"></div></div>
-  <div class="card"><h3>Measurement history</h3><div id="measurementTable"></div></div>
+  <div class="row"><h2>Measurements</h2><button class="soft" onclick="openModal('measurement')">＋ Add</button></div>
+  <div class="card"><div id="measurementTable"></div></div>
 </section>
 </div>
 
 <div class="bottom"><nav class="nav">
 <button data-tab="home" onclick="tab('home')"><span class="ico">⌂</span>Home</button>
-<button data-tab="workout" onclick="tab('workout')"><span class="ico">＋</span>Workout</button>
-<button data-tab="progress" onclick="tab('progress')"><span class="ico">↗</span>Progress</button>
+<button data-tab="train" onclick="tab('train')"><span class="ico">＋</span>Train</button>
+<button data-tab="program" onclick="tab('program')"><span class="ico">▦</span>Program</button>
+<button data-tab="progress" onclick="tab('progress')"><span class="ico">↗</span>History</button>
 <button data-tab="body" onclick="tab('body')"><span class="ico">◯</span>Body</button>
 </nav></div>
 
 <div class="modal" id="modal"><div class="sheet"><button class="close" onclick="closeModal()">×</button><div id="modalContent"></div></div></div>
 
 <script>
-const KEY='training_os_v1';
-let db=JSON.parse(localStorage.getItem(KEY)||'null')||{
- workouts:[], measurements:[], prs:[],
- templates:[
-  {name:'Push + FSP', exercises:[{name:'Ring Dip',type:'strength',sets:3,reps:8,load:0},{name:'Overhead Press',type:'strength',sets:3,reps:6,load:0},{name:'Planche',type:'skill',sets:4,hold:10,progression:'Tuck'}]},
-  {name:'Pull + FSP', exercises:[{name:'Weighted Pull-up',type:'strength',sets:3,reps:6,load:0},{name:'Row',type:'strength',sets:3,reps:8,load:0},{name:'Front Lever',type:'skill',sets:4,hold:8,progression:'Advanced tuck'}]},
-  {name:'Legs', exercises:[{name:'Squat',type:'strength',sets:3,reps:6,load:0},{name:'Romanian Deadlift',type:'strength',sets:3,reps:8,load:0},{name:'Split Squat',type:'strength',sets:3,reps:10,load:0}]}
- ]};
+const KEY='training_os_v2';
+const V1='training_os_v1';
+let db=JSON.parse(localStorage.getItem(KEY)||'null');
+if(!db){
+  db={version:2,blocks:[],workouts:[],measurements:[],activeBlockId:null};
+  try{
+    let old=JSON.parse(localStorage.getItem(V1)||'null');
+    if(old){
+      db.measurements=old.measurements||[];
+      db.workouts=(old.workouts||[]).map(w=>({...w,blockId:null,templateId:null,legacy:true}));
+    }
+  }catch(e){}
+}
+let activeWorkout=null, historyFilter='all';
+
+function uid(){return (crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random())}
 function save(){localStorage.setItem(KEY,JSON.stringify(db));renderAll()}
 function tab(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));renderAll()}
-function openModal(type){let c=document.getElementById('modalContent');
- if(type==='workoutPicker'){c.innerHTML='<h2>Choose workout</h2>'+db.templates.map((t,i)=>`<button class="dark" style="margin:6px 0" onclick="beginTemplate(${i})">${t.name}<br><small style="opacity:.7">${t.exercises.length} exercises</small></button>`).join('');}
- if(type==='measurement'){c.innerHTML=`<h2>Weekly check-in</h2><form onsubmit="addMeasurement(event)"><label>Date</label><input name="date" type="date" value="${new Date().toISOString().slice(0,10)}"><label>Weight (kg)</label><input name="weight" type="number" step=".1" required><label>Waist (cm)</label><input name="waist" type="number" step=".1"><label>Chest (cm)</label><input name="chest" type="number" step=".1"><label>Arm (cm)</label><input name="arm" type="number" step=".1"><label>Thigh (cm)</label><input name="thigh" type="number" step=".1"><button class="dark" style="margin-top:16px">Save measurement</button></form>`;}
- if(type==='settings'){c.innerHTML=`<h2>Settings</h2><p class="muted">Your data is stored locally in this browser. Use Export to make a backup.</p><button class="dark" onclick="exportData()">Export data</button><button class="dark" style="margin-top:8px" onclick="importData()">Import data</button>`;}
- document.getElementById('modal').classList.add('open')}
+function openModal(type,arg){const c=document.getElementById('modalContent');
+ if(type==='newBlock') c.innerHTML=`<h2>Create training block</h2><form onsubmit="createBlock(event)"><label>Block name</label><input name="name" placeholder="Hypertrophy 1" required><label>Type</label><input name="type" placeholder="Hypertrophy / Strength / Reload"><label>Duration (weeks)</label><input name="weeks" type="number" min="1" value="8"><label>Notes</label><textarea name="notes" placeholder="Goal, progression strategy, etc."></textarea><button class="dark" style="margin-top:14px">Create block</button></form>`;
+ if(type==='editBlock'){let b=db.blocks.find(x=>x.id===arg); c.innerHTML=`<h2>Edit block</h2><form onsubmit="updateBlock(event,'${b.id}')"><label>Name</label><input name="name" value="${esc(b.name)}"><label>Type</label><input name="type" value="${esc(b.type||'')}"><label>Duration (weeks)</label><input name="weeks" type="number" min="1" value="${b.weeks||1}"><label>Notes</label><textarea name="notes">${esc(b.notes||'')}</textarea><button class="dark" style="margin-top:14px">Save changes</button></form><button class="soft" style="margin-top:8px;width:100%" onclick="duplicateBlock('${b.id}')">Duplicate block</button>`;
+ }
+ if(type==='newTemplate'){let b=db.blocks.find(x=>x.id===arg); c.innerHTML=`<h2>Add workout template</h2><form onsubmit="createTemplate(event,'${b.id}')"><label>Name</label><input name="name" placeholder="Upper A" required><label>Day order</label><input name="order" type="number" min="1" value="${b.templates.length+1}"><button class="dark" style="margin-top:14px">Add template</button></form>`}
+ if(type==='editTemplate'){let [bid,tid]=arg.split('|'),b=db.blocks.find(x=>x.id===bid),t=b.templates.find(x=>x.id===tid); c.innerHTML=`<h2>${esc(t.name)}</h2><form onsubmit="updateTemplate(event,'${bid}','${tid}')"><label>Template name</label><input name="name" value="${esc(t.name)}"><label>Day order</label><input name="order" type="number" min="1" value="${t.order}"><button class="dark" style="margin-top:14px">Save</button></form><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>Exercises</h3><div id="modalExercises">${renderTemplateExercises(t)}</div><button class="soft" style="margin-top:10px;width:100%" onclick="openModal('newExercise','${bid}|${tid}')">＋ Add exercise</button>`}
+ if(type==='newExercise'){let [bid,tid]=arg.split('|'); c.innerHTML=`<h2>Add exercise</h2><form onsubmit="createExercise(event,'${bid}','${tid}')"><label>Exercise</label><input name="name" required><label>Type</label><select name="type"><option value="strength">Strength</option><option value="skill">Skill / hold</option></select><div class="grid2"><div><label>Sets</label><input name="sets" type="number" min="1" value="3"></div><div><label>Rest (sec)</label><input name="rest" type="number" min="0" value="120"></div></div><div class="grid2"><div><label>Rep min</label><input name="repMin" type="number" value="8"></div><div><label>Rep max</label><input name="repMax" type="number" value="10"></div></div><label>Target RIR / RPE</label><input name="rir" placeholder="1-2 RIR"><label>Template notes</label><textarea name="notes" placeholder="Technique cue, progression rule..."></textarea><button class="dark" style="margin-top:14px">Add exercise</button></form>`}
+ if(type==='editExercise'){let [bid,tid,eid]=arg.split('|'),b=db.blocks.find(x=>x.id===bid),t=b.templates.find(x=>x.id===tid),e=t.exercises.find(x=>x.id===eid); c.innerHTML=`<h2>Edit exercise</h2><form onsubmit="updateExercise(event,'${bid}','${tid}','${eid}')"><label>Exercise</label><input name="name" value="${esc(e.name)}"><label>Type</label><select name="type"><option value="strength" ${e.type==='strength'?'selected':''}>Strength</option><option value="skill" ${e.type==='skill'?'selected':''}>Skill / hold</option></select><div class="grid2"><div><label>Sets</label><input name="sets" type="number" min="1" value="${e.sets}"></div><div><label>Rest (sec)</label><input name="rest" type="number" min="0" value="${e.rest||0}"></div></div><div class="grid2"><div><label>Rep min</label><input name="repMin" type="number" value="${e.repMin??''}"></div><div><label>Rep max</label><input name="repMax" type="number" value="${e.repMax??''}"></div></div><label>Target RIR / RPE</label><input name="rir" value="${esc(e.rir||'')}"><label>Template notes</label><textarea name="notes">${esc(e.notes||'')}</textarea><button class="dark" style="margin-top:14px">Save exercise</button></form>`}
+ if(type==='measurement') c.innerHTML=`<h2>Add measurement</h2><form onsubmit="addMeasurement(event)"><label>Date</label><input name="date" type="date" value="${new Date().toISOString().slice(0,10)}"><label>Weight (kg)</label><input name="weight" type="number" step=".1"><label>Waist (cm)</label><input name="waist" type="number" step=".1"><label>Chest (cm)</label><input name="chest" type="number" step=".1"><label>Arm (cm)</label><input name="arm" type="number" step=".1"><label>Thigh (cm)</label><input name="thigh" type="number" step=".1"><button class="dark" style="margin-top:14px">Save</button></form>`;
+ if(type==='settings') c.innerHTML=`<h2>Settings</h2><p class="sub">Data is stored locally on this device. Export backups regularly.</p><button class="dark" onclick="exportData()">Export data</button><button class="soft" style="margin-top:8px;width:100%" onclick="importData()">Import data</button>`;
+ document.getElementById('modal').classList.add('open')
+}
 function closeModal(){document.getElementById('modal').classList.remove('open')}
-let active=null;
-function startWorkout(){openModal('workoutPicker')}
-function beginTemplate(i){closeModal();active={name:db.templates[i].name,start:Date.now(),exercises:db.templates[i].exercises.map(e=>({...e,sets:Array.from({length:e.sets},()=>({load:e.load||0,reps:e.reps||'',hold:e.hold||'',done:false}))}))};renderWorkout();tab('workout')}
-function renderWorkout(){if(!active)return;document.getElementById('workoutName').textContent=active.name;document.getElementById('exerciseCount').textContent=active.exercises.length+' exercises';document.getElementById('exerciseList').innerHTML=active.exercises.map((e,ei)=>`<div class="exercise"><div class="exercise-top"><div><h3>${e.name}</h3><div class="sub">${e.type==='skill'?e.progression||'Skill':'Strength'}</div></div><span class="pill">${e.sets.length} sets</span></div><div class="sets">${e.sets.map((s,si)=>`<div class="set ${s.done?'done':''}">${e.type==='skill'?`<input class="small" type="number" step=".1" value="${s.hold}" onchange="editSet(${ei},${si},'hold',this.value)">s`:`<input class="small" type="number" step=".5" value="${s.load}" onchange="editSet(${ei},${si},'load',this.value)"><input class="small" type="number" value="${s.reps}" onchange="editSet(${ei},${si},'reps',this.value)">`}<button onclick="toggleSet(${ei},${si})">${s.done?'✓':'○'}</button></div>`).join('')}</div><button class="addset" onclick="addSet(${ei})">＋ Set</button></div>`).join('')}
-function editSet(e,s,k,v){active.exercises[e].sets[s][k]=v}
-function toggleSet(e,s){active.exercises[e].sets[s].done=!active.exercises[e].sets[s].done;renderWorkout()}
-function addSet(e){let x=active.exercises[e], last=x.sets[x.sets.length-1]||{};x.sets.push({...last,done:false});renderWorkout()}
-function finishWorkout(){if(!active)return;const w={id:crypto.randomUUID(),date:new Date().toISOString(),name:active.name,duration:Math.round((Date.now()-active.start)/60000),exercises:active.exercises};db.workouts.push(w);detectPRs(w);active=null;save();tab('home')}
-function detectPRs(w){w.exercises.forEach(e=>{if(e.type==='skill')return;e.sets.filter(s=>s.done).forEach(s=>{let score=(+s.load||0)*(+s.reps||0);let old=db.prs.find(p=>p.name===e.name);if(!old||score>old.score){db.prs=db.prs.filter(p=>p.name!==e.name);db.prs.push({name:e.name,score,load:+s.load||0,reps:+s.reps||0,date:w.date})}})})}
-function addMeasurement(ev){ev.preventDefault();let f=new FormData(ev.target),m=Object.fromEntries(f.entries());Object.keys(m).forEach(k=>{if(k!=='date')m[k]=m[k]?+m[k]:null});db.measurements.push(m);db.measurements.sort((a,b)=>a.date.localeCompare(b.date));closeModal();save()}
-function renderHome(){document.getElementById('mSessions').textContent=db.workouts.length;let ym=new Date().toISOString().slice(0,7);document.getElementById('mMonth').textContent=db.workouts.filter(w=>w.date.slice(0,7)===ym).length;document.getElementById('mPR').textContent=db.prs.length;let m=db.measurements.at(-1);document.getElementById('mWeight').textContent=m?.weight?m.weight+' kg':'—';let t=db.templates[0];document.getElementById('todayTitle').textContent=active?active.name:t.name;document.getElementById('todayMeta').textContent=active?'Workout in progress':t.exercises.length+' exercises · tap to start'}
-function renderProgress(){let names=[...new Set(db.workouts.flatMap(w=>w.exercises.map(e=>e.name)))];let sel=document.getElementById('progressExercise'),current=sel.value;sel.innerHTML=names.map(n=>`<option>${n}</option>`).join('');if(current&&names.includes(current))sel.value=current;let name=sel.value,points=[];db.workouts.forEach(w=>w.exercises.forEach(e=>{if(e.name===name&&e.type==='strength'){e.sets.filter(s=>s.done).forEach(s=>points.push({date:w.date,v:(+s.load||0)*(+s.reps||0)}))}}));drawChart('chart',points);document.getElementById('chartCaption').textContent=points.length?`${name}: load × reps across logged sets`:'Log a strength workout to see progress.';document.getElementById('prs').innerHTML=db.prs.length?db.prs.map(p=>`<div class="row" style="padding:10px 0;border-bottom:1px solid var(--line)"><div><b>${p.name}</b><div class="sub">${new Date(p.date).toLocaleDateString()}</div></div><div class="success">+${p.load} × ${p.reps}</div></div>`).join(''):'<div class="empty">Your first PRs will appear here.</div>'}
-function drawChart(id,pts){let el=document.getElementById(id);if(!pts.length){el.innerHTML='';return}let vals=pts.map(p=>p.v),min=Math.min(...vals),max=Math.max(...vals);if(max===min)max=min+1;el.innerHTML=pts.map((p,i)=>{let x=5+(i/(Math.max(pts.length-1,1)))*90,y=5+((p.v-min)/(max-min))*90;return `<span class="dot" style="left:${x}%;bottom:${y}%"></span>`}).join('')}
-function renderBody(){let ms=db.measurements;document.getElementById('bodyLatest').textContent=ms.at(-1)?.weight?ms.at(-1).weight+' kg':'—';drawChart('weightChart',ms.map(m=>({v:m.weight||0,date:m.date})));document.getElementById('measurementTable').innerHTML=ms.length?`<table><tr><th>Date</th><th>Weight</th><th>Waist</th><th>Chest</th></tr>${[...ms].reverse().map(m=>`<tr><td>${m.date}</td><td>${m.weight??'—'}</td><td>${m.waist??'—'}</td><td>${m.chest??'—'}</td></tr>`).join('')}</table>`:'<div class="empty">No measurements yet.</div>'}
-function renderAll(){renderHome();renderProgress();renderBody()}
-function exportData(){let blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='training-os-backup.json';a.click()}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+
+function createBlock(ev){ev.preventDefault();let f=Object.fromEntries(new FormData(ev.target).entries());let b={id:uid(),name:f.name,type:f.type,weeks:+f.weeks||1,notes:f.notes,templates:[]};db.blocks.push(b);if(!db.activeBlockId)db.activeBlockId=b.id;closeModal();save()}
+function updateBlock(ev,id){ev.preventDefault();let f=Object.fromEntries(new FormData(ev.target).entries()),b=db.blocks.find(x=>x.id===id);Object.assign(b,{name:f.name,type:f.type,weeks:+f.weeks||1,notes:f.notes});closeModal();save()}
+function duplicateBlock(id){let b=db.blocks.find(x=>x.id===id),copy=JSON.parse(JSON.stringify(b));copy.id=uid();copy.name=b.name+' Copy';copy.templates.forEach(t=>{t.id=uid();t.exercises.forEach(e=>e.id=uid())});db.blocks.push(copy);closeModal();save()}
+function setActiveBlock(id){db.activeBlockId=id;save()}
+function createTemplate(ev,bid){ev.preventDefault();let f=Object.fromEntries(new FormData(ev.target).entries()),b=db.blocks.find(x=>x.id===bid);b.templates.push({id:uid(),name:f.name,order:+f.order||1,exercises:[]});closeModal();save()}
+function updateTemplate(ev,bid,tid){ev.preventDefault();let f=Object.fromEntries(new FormData(ev.target).entries()),t=db.blocks.find(x=>x.id===bid).templates.find(x=>x.id===tid);t.name=f.name;t.order=+f.order||1;closeModal();save()}
+function createExercise(ev,bid,tid){ev.preventDefault();let f=Object.fromEntries(new FormData(ev.target).entries()),t=db.blocks.find(x=>x.id===bid).templates.find(x=>x.id===tid);t.exercises.push({id:uid(),name:f.name,type:f.type,sets:+f.sets||1,rest:+f.rest||0,repMin:f.repMin?+f.repMin:null,repMax:f.repMax?+f.repMax:null,rir:f.rir,notes:f.notes});closeModal();openModal('editTemplate',bid+'|'+tid);save()}
+function updateExercise(ev,bid,tid,eid){ev.preventDefault();let f=Object.fromEntries(new FormData(ev.target).entries()),e=db.blocks.find(x=>x.id===bid).templates.find(x=>x.id===tid).exercises.find(x=>x.id===eid);Object.assign(e,{name:f.name,type:f.type,sets:+f.sets||1,rest:+f.rest||0,repMin:f.repMin?+f.repMin:null,repMax:f.repMax?+f.repMax:null,rir:f.rir,notes:f.notes});closeModal();save()}
+function renderTemplateExercises(t){return t.exercises.length?t.exercises.map((e,i)=>`<div class="exercise-card" onclick="openModal('editExercise','${currentModalBlock}|${t.id}|${e.id}')"><div class="row"><b>${i+1}. ${esc(e.name)}</b><span class="pill">${e.sets} sets</span></div><div class="tiny">${e.type==='skill'?'Hold / skill':`${e.repMin??'—'}–${e.repMax??'—'} reps`} · Rest ${e.rest||0}s ${e.rir?'· '+esc(e.rir):''}</div>${e.notes?`<div class="note">${esc(e.notes)}</div>`:''}</div>`).join(''):'<div class="empty">No exercises yet.</div>'}
+let currentModalBlock='';
+
+function renderProgram(){let el=document.getElementById('blockList');if(!db.blocks.length){el.innerHTML='<div class="card empty">Create your first training block.</div>';return}el.innerHTML=db.blocks.map(b=>`<div class="card"><div class="row"><div><h3>${esc(b.name)}</h3><div class="sub">${esc(b.type||'Custom')} · ${b.weeks} weeks</div></div><span class="pill">${db.activeBlockId===b.id?'ACTIVE':'BLOCK'}</span></div>${b.notes?`<div class="note">${esc(b.notes)}</div>`:''}<div class="chiprow">${b.templates.sort((a,c)=>a.order-c.order).map(t=>`<button class="chip" onclick="currentModalBlock='${b.id}';openModal('editTemplate','${b.id}|${t.id}')">${esc(t.name)}</button>`).join('')}</div><div class="grid2"><button class="soft" onclick="openModal('newTemplate','${b.id}')">＋ Workout</button><button class="soft" onclick="openModal('editBlock','${b.id}')">Edit block</button></div>${db.activeBlockId===b.id?'':`<button class="dark" style="margin-top:8px" onclick="setActiveBlock('${b.id}')">Make active</button>`}</div>`).join('')}
+
+function getActiveBlock(){return db.blocks.find(b=>b.id===db.activeBlockId)}
+function startNextWorkout(){let b=getActiveBlock();if(!b||!b.templates.length){tab('program');return}let last=db.workouts.filter(w=>w.blockId===b.id).at(-1),templates=[...b.templates].sort((a,c)=>a.order-c.order),idx=0;if(last){let li=templates.findIndex(t=>t.id===last.templateId);idx=(li+1)%templates.length}startTemplate(b.id,templates[idx].id)}
+function startTemplate(bid,tid){let b=db.blocks.find(x=>x.id===bid),t=b.templates.find(x=>x.id===tid);activeWorkout={id:uid(),blockId:b.id,templateId:t.id,blockName:b.name,name:t.name,start:Date.now(),notes:'',exercises:t.exercises.map(e=>({id:e.id,name:e.name,type:e.type,rest:e.rest,repMin:e.repMin,repMax:e.repMax,rir:e.rir,templateNotes:e.notes,exerciseNotes:'',sets:Array.from({length:e.sets},()=>e.type==='skill'?{hold:'',done:false}:{load:'',reps:'',done:false})}))};renderTrain();tab('train')}
+function renderTrain(){let no=document.getElementById('noActiveWorkout'),wrap=document.getElementById('activeWorkoutWrap');if(!activeWorkout){no.style.display='block';wrap.style.display='none';return}no.style.display='none';wrap.style.display='block';document.getElementById('awName').textContent=activeWorkout.name;document.getElementById('awBlock').textContent=activeWorkout.blockName;document.getElementById('awExercises').innerHTML=activeWorkout.exercises.map((e,ei)=>`<div class="card"><div class="exercise-header"><div><h3>${esc(e.name)}</h3><div class="tiny">${e.type==='skill'?'Skill / hold':`${e.repMin??'—'}–${e.repMax??'—'} reps`} · Rest ${e.rest||0}s ${e.rir?'· '+esc(e.rir):''}</div></div><span class="pill">${e.sets.length} sets</span></div>${e.templateNotes?`<div class="note">Template: ${esc(e.templateNotes)}</div>`:''}<div style="margin-top:10px">${e.sets.map((s,si)=>e.type==='skill'?`<div class="setrow skill"><span class="tiny">S${si+1}</span><input type="number" step=".1" placeholder="sec" value="${s.hold}" onchange="editSet(${ei},${si},'hold',this.value)"><button class="check ${s.done?'done':''}" onclick="toggleSet(${ei},${si})">${s.done?'✓':'○'}</button></div>`:`<div class="setrow"><span class="tiny">S${si+1}</span><input type="number" step=".5" placeholder="kg" value="${s.load}" onchange="editSet(${ei},${si},'load',this.value)"><input type="number" placeholder="reps" value="${s.reps}" onchange="editSet(${ei},${si},'reps',this.value)"><button class="check ${s.done?'done':''}" onclick="toggleSet(${ei},${si})">${s.done?'✓':'○'}</button></div>`).join('')}</div><label>Exercise notes</label><textarea onchange="activeWorkout.exercises[${ei}].exerciseNotes=this.value" placeholder="Notes for today...">${esc(e.exerciseNotes||'')}</textarea></div>`).join('')}
+function editSet(e,s,k,v){activeWorkout.exercises[e].sets[s][k]=v}
+function toggleSet(e,s){activeWorkout.exercises[e].sets[s].done=!activeWorkout.exercises[e].sets[s].done;renderTrain()}
+function finishWorkout(){if(!activeWorkout)return;activeWorkout.notes=document.getElementById('awNotes').value;activeWorkout.date=new Date().toISOString();activeWorkout.duration=Math.round((Date.now()-activeWorkout.start)/60000);db.workouts.push(activeWorkout);activeWorkout=null;save();tab('home')}
+
+function renderHome(){let b=getActiveBlock();document.getElementById('mSessions').textContent=db.workouts.length;document.getElementById('mBlocks').textContent=db.blocks.length;if(!b){document.getElementById('activeBlockName').textContent='No active block';document.getElementById('activeBlockMeta').textContent='Create a block to start.';document.getElementById('homeTemplates').innerHTML='<div class="empty">No split yet.</div>';return}document.getElementById('activeBlockName').textContent=b.name;document.getElementById('activeBlockMeta').textContent=`${b.type||'Custom'} · ${b.weeks} weeks`;document.getElementById('homeTemplates').innerHTML=b.templates.length?[...b.templates].sort((a,c)=>a.order-c.order).map(t=>`<div class="row" style="padding:10px 0;border-bottom:1px solid var(--line)"><div><b>${esc(t.name)}</b><div class="tiny">${t.exercises.length} exercises</div></div><button class="soft" onclick="startTemplate('${b.id}','${t.id}')">Start</button></div>`).join(''):'<div class="empty">Add Upper A, Lower A, Upper B and Lower B.</div>'}
+
+function renderHistory(){let filters=['all',...db.blocks.map(b=>b.id)];document.getElementById('blockFilters').innerHTML=filters.map(f=>`<button class="chip ${historyFilter===f?'active':''}" onclick="historyFilter='${f}';renderHistory()">${f==='all'?'All':esc(db.blocks.find(b=>b.id===f)?.name||'Legacy')}</button>`).join('');let ws=[...db.workouts].reverse().filter(w=>historyFilter==='all'||w.blockId===historyFilter);document.getElementById('historyList').innerHTML=ws.length?ws.map(w=>`<div class="block-card"><div class="row"><div><b>${esc(w.name)}</b><div class="tiny">${new Date(w.date).toLocaleDateString()} · ${w.duration||0} min</div></div><span class="pill">${esc(w.blockName||'Legacy')}</span></div><div class="note">${w.exercises?.map(e=>e.name).join(' · ')||''}</div>${w.notes?`<div class="note">Session: ${esc(w.notes)}</div>`:''}</div>`).join(''):'<div class="empty">No workouts in this filter.</div>'}
+
+function addMeasurement(ev){ev.preventDefault();let f=Object.fromEntries(new FormData(ev.target).entries());Object.keys(f).forEach(k=>{if(k!=='date')f[k]=f[k]?+f[k]:null});db.measurements.push(f);db.measurements.sort((a,b)=>a.date.localeCompare(b.date));closeModal();save()}
+function renderMeasurements(){let ms=[...db.measurements].reverse();document.getElementById('measurementTable').innerHTML=ms.length?`<table><tr><th>Date</th><th>Wt</th><th>Waist</th><th>Chest</th></tr>${ms.map(m=>`<tr><td>${m.date}</td><td>${m.weight??'—'}</td><td>${m.waist??'—'}</td><td>${m.chest??'—'}</td></tr>`).join('')}</table>`:'<div class="empty">No measurements yet.</div>'}
+
+function renderAll(){renderHome();renderTrain();renderProgram();renderHistory();renderMeasurements()}
+function exportData(){let blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='training-os-v2-backup.json';a.click()}
 function importData(){let i=document.createElement('input');i.type='file';i.accept='.json';i.onchange=()=>{let r=new FileReader();r.onload=()=>{db=JSON.parse(r.result);save();closeModal()};r.readAsText(i.files[0])};i.click()}
+setInterval(()=>{if(activeWorkout){let s=Math.floor((Date.now()-activeWorkout.start)/1000),m=String(Math.floor(s/60)).padStart(2,'0'),ss=String(s%60).padStart(2,'0');document.getElementById('awElapsed').textContent=`${m}:${ss}`}},1000);
 renderAll();document.querySelector('[data-tab="home"]').classList.add('active');
-setInterval(()=>{if(active)document.getElementById('elapsed').textContent=new Date(Date.now()-active.start).toISOString().substr(14,5)},1000);
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
 </script>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js').catch(console.error);
-  });
-}
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  const btn = document.getElementById('installBtn');
-  if (btn) btn.style.display = 'block';
-});
-async function installApp(){
-  if (deferredPrompt){
-    deferredPrompt.prompt();
-    await deferredPrompt.userChoice;
-    deferredPrompt = null;
-    const btn = document.getElementById('installBtn');
-    if (btn) btn.style.display='none';
-  } else {
-    alert('On iPhone: open this page in Safari, tap Share, then “Add to Home Screen”.');
-  }
-}
-</script>
-
 </body></html>
